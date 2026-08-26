@@ -1,5 +1,8 @@
 # USB Trigger
 
+> [!NOTE]
+> Repositori ini masih dalam tahap pengembangan dan akan terus berkembang.
+
 Otomatis membuka terminal + `btop` saat USB SanDisk (`0781:5567`) dimasukkan.
 
 ## Berkas
