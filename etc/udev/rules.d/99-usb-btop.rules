@@ -1,0 +1,1 @@
+ACTION=="add", SUBSYSTEM=="block", ENV{ID_VENDOR_ID}=="0781", ENV{ID_MODEL_ID}=="5567", ENV{DEVTYPE}=="disk", RUN+="/usr/local/bin/usb-btop-trigger.sh"

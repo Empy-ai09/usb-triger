@@ -1,0 +1,12 @@
+#!/bin/sh
+set -eu
+if command -v kgx >/dev/null 2>&1; then
+  exec kgx -- btop
+fi
+if command -v gnome-terminal >/dev/null 2>&1; then
+  exec gnome-terminal -- btop
+fi
+if command -v konsole >/dev/null 2>&1; then
+  exec konsole -e btop
+fi
+exec x-terminal-emulator -e btop
