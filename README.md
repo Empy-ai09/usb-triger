@@ -1,27 +1,44 @@
-# usb triger
+# USB Trigger
 
-Auto-open terminal + `btop` when the SanDisk USB (`0781:5567`) is inserted.
+Otomatis membuka terminal + `btop` saat USB SanDisk (`0781:5567`) dimasukkan.
 
-## Files
+## Berkas
 - `etc/udev/rules.d/99-usb-btop.rules`
 - `usr/local/bin/usb-btop-trigger.sh`
-- `home/unlike/.local/bin/usb-btop-launch`
-- `home/unlike/.config/systemd/user/usb-btop.service`
+- `home/user/.local/bin/usb-btop-launch`
+- `home/user/.config/systemd/user/usb-btop.service`
 
-## Install
+## Cara Instalasi
+*Catatan: Ganti `user` dengan username Anda masing-masing.*
+
 ```sh
 sudo install -Dm755 usr/local/bin/usb-btop-trigger.sh /usr/local/bin/usb-btop-trigger.sh
-install -Dm755 home/unlike/.local/bin/usb-btop-launch "$HOME/.local/bin/usb-btop-launch"
-install -Dm644 home/unlike/.config/systemd/user/usb-btop.service "$HOME/.config/systemd/user/usb-btop.service"
+```
+
+```sh
+install -Dm755 home/user/.local/bin/usb-btop-launch "$HOME/.local/bin/usb-btop-launch"
+```
+
+```sh
+install -Dm644 home/user/.config/systemd/user/usb-btop.service "$HOME/.config/systemd/user/usb-btop.service"
+```
+
+```sh
 sudo install -Dm644 etc/udev/rules.d/99-usb-btop.rules /etc/udev/rules.d/99-usb-btop.rules
+```
+
+```sh
 sudo udevadm control --reload-rules
+```
+
+```sh
 systemctl --user daemon-reload
 ```
 
-## Notes
-- GNOME: uses `kgx` first, then `gnome-terminal`.
-- KDE: uses `konsole`.
-- Fallback: `x-terminal-emulator`.
+## Catatan
+- GNOME: menggunakan `kgx`, lalu `gnome-terminal`.
+- KDE: menggunakan `konsole`.
+- Cadangan: `x-terminal-emulator`.
 
-## Attribution
-Source adapted from work done in this session; modify freely as requested, but keep this attribution in published copies.
+## Atribusi
+Sumber diadaptasi dari sesi ini; ubah bebas sesuai kebutuhan, pertahankan atribusi ini pada salinan yang dipublikasikan.
