@@ -1,12 +1,36 @@
 #!/bin/sh
 set -eu
+DEVNODE=${1:-}
+USER_NAME=${LOGNAME:-${USER:-""}}
+if [ -z "$DEVNODE" ] || [ -z "$USER_NAME" ]; then
+  exit 0
+fi
+
+# Find mountpoint for this device
+MOUNTPOINT=$(findmnt -n -o TARGET "$DEVNODE" || true)
+if [ -z "$MOUNTPOINT" ]; then
+  # try common dirs
+  MOUNTPOINT=$(find "/run/media/$USER_NAME" "/media/$USER_NAME" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | head -n1 || true)
+fi
+
+if [ -z "$MOUNTPOINT" ]; then
+  exit 0
+fi
+
+# Tool path on USB
+TOOL="$MOUNTPOINT/tools/btop"
+if [ ! -x "$TOOL" ]; then
+  exit 0
+fi
+
+# Launch in terminal if available, else run directly
 if command -v kgx >/dev/null 2>&1; then
-  exec kgx -- btop
+  exec kgx -- "$TOOL"
 fi
 if command -v gnome-terminal >/dev/null 2>&1; then
-  exec gnome-terminal -- btop
+  exec gnome-terminal -- "$TOOL"
 fi
 if command -v konsole >/dev/null 2>&1; then
-  exec konsole -e btop
+  exec konsole -e "$TOOL"
 fi
-exec x-terminal-emulator -e btop
+exec "$TOOL"

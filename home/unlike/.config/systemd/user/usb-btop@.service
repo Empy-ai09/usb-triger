@@ -1,0 +1,7 @@
+[Unit]
+Description=Run USB tool when specific USB is inserted
+
+[Service]
+Type=oneshot
+Environment=DEVNODE=%I
+ExecStart=/home/unlike/.local/bin/usb-btop-launch "%I"
